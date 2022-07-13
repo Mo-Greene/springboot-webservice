@@ -47,6 +47,18 @@ deploy:
     local_dir: deploy
     wait_until_deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY  # Travis repo settings 에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY  # Travis repo settings 에 설정된 값
+    bucket: springboot-builder  # Bucket 이름
+    key: springboot-webservice.zip
+    bundle_type: zip
+    application: springboot-prac
+    deploy_group: springboot-prac
+    region: ap-northeast-2
+    wait-until-deployed: true
+
+
 
 
 # CI 실행 완료 시 작성한 이메일로 알람
