@@ -40,12 +40,23 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY  # Travis repo settings 에 설정된 값
     secret_access_key: $AWS_SECRET_KEY  # Travis repo settings 에 설정된 값
-    bucket: springboot-builder  # Bucket 이름
+    bucket: springboot-builder  # S3 Bucket 이름
     region: ap-northeast-2  # Aws 리전
     skip_cleanup: true
     acl: private
     local_dir: deploy
     wait_until_deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: springboot-builder  # S3 Bucket 이름
+    key: springboot-webservice.zip
+    bundle_type: zip
+    application: springboot-webservice
+    deployment_group: springboot-webservice-group
+    region: ap-northeast-2
+    wait-until-deployed: true
 
 
 # CI 실행 완료 시 작성한 이메일로 알람
