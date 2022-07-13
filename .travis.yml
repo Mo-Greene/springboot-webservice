@@ -1,0 +1,32 @@
+language: java
+jdk:
+  - openjdk8
+
+
+branches:
+  only:
+    - master
+
+
+# 빌드 전에 gradlew 의 권한을 추가한다.
+before_install:
+  - chmod +x gradlew
+
+
+# Travis CI 서버의 Home
+# gradle 을 통하여 의존성을 받게 되면 이를 캐시하여 배포할 때 마다 다시 받지 않도록 설정한다.
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+
+# master 브랜치에 push 되면 수행되는 명령어이다.
+# 프로젝트 내에 권한이 추가된 gradlew 를 활용하여 clean, build 를 진행한다.
+script: "./gradlew clean build"
+
+# CI 실행 완료 시 작성한 이메일로 알람
+notifications:
+  email:
+    recipients:
+      - 13blueboy13@daum.net
