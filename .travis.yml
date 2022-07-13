@@ -53,8 +53,8 @@ deploy:
     bucket: springboot-builder  # Bucket 이름
     key: springboot-webservice.zip
     bundle_type: zip
-    application: springboot-prac
-    deploy_group: springboot-prac
+    application: springboot-webservice
+    deploy_group: springboot-webservice-group
     region: ap-northeast-2
     wait-until-deployed: true
 
