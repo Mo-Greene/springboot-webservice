@@ -29,8 +29,8 @@ script: "./gradlew clean build"
 # deploy 명령어가 실행되기 전에 수행
 # codeDeploy 는 jar 파일을 인식하지 못함 그러므로 압축해야됨
 before_deploy:
-  # 현재 위치의 모든 파일을 springboot-webservice 로 압축한다.
-  - zip -r springboot-webservice
+  # 현재 위치의 모든 파일을 springboot-webservice 로 압축
+  - zip -r springboot-webservice *
   # deploy 디렉토리를 Travis 가 실행 중인 위치에 생성한다.
   - mkdir -p deploy
   # springboot-webservice.zip 파일을 deploy/ 로 이동
