@@ -17,4 +17,9 @@ public class AwsController {
     public AwsResponseDto awsResponseDto(@RequestParam("name") String name, @RequestParam("amount") int amount){
         return new AwsResponseDto(name, amount);
     }
+
+    @GetMapping("/prac")
+    public String prac() {
+        return "no";
+    }
 }
