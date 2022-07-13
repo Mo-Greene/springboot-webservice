@@ -25,6 +25,30 @@ cache:
 # 프로젝트 내에 권한이 추가된 gradlew 를 활용하여 clean, build 를 진행한다.
 script: "./gradlew clean build"
 
+
+# deploy 명령어가 실행되기 전에 수행
+# codeDeploy 는 jar 파일을 인식하지 못함 그러므로 압축해야됨
+before_deploy:
+  # 현재 위치의 모든 파일을 springboot-webservice 로 압축한다.
+  - zip -r springboot-webservice
+  # deploy 디렉토리를 Travis 가 실행 중인 위치에 생성한다.
+  - mkdir -p deploy
+  # springboot-webservice.zip 파일을 deploy/ 로 이동
+  - mv springboot-webservice.zip deploy/springboot-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY  # Travis repo settings 에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY  # Travis repo settings 에 설정된 값
+    bucket: springboot-builder  # Bucket 이름
+    region: ap-northeast-2  # Aws 리전
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait_until_deployed: true
+
+
+
 # CI 실행 완료 시 작성한 이메일로 알람
 notifications:
   email:
